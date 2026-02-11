@@ -52,7 +52,7 @@ public class KafkaConsumerConfig {
         config.put(ConsumerConfig.ALLOW_AUTO_CREATE_TOPICS_CONFIG, allowAutoCreateTopics);
         config.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, autoOffsetReset);
         config.put(JsonDeserializer.TYPE_MAPPINGS,
-                "com.arsiwooqq.paymentservice.event.PaymentCreatedEvent:event.com.arsiwooqq.orderservice.PaymentCreatedEvent");
+                "com.arsiwooqq.paymentservice.event.PaymentCreatedEvent:com.arsiwooqq.orderservice.event.PaymentCreatedEvent");
 
         return new DefaultKafkaConsumerFactory<>(config);
     }

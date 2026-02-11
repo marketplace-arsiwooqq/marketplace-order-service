@@ -34,8 +34,8 @@ public abstract class AbstractIntegrationTest {
     static void configureKafkaProperties(DynamicPropertyRegistry registry) {
         registry.add("spring.kafka.bootstrap-servers", kafka::getBootstrapServers);
         registry.add("kafka.bootstrap-servers", kafka::getBootstrapServers);
-        registry.add("kafka.producer.topics.payment-created.replicas", () -> 1);
-        registry.add("kafka.producer.topics.payment-created.min-insync", () -> 1);
+        registry.add("kafka.producer.topics.order-created.replicas", () -> 1);
+        registry.add("kafka.producer.topics.order-created.min-insync", () -> 1);
         registry.add("kafka.consumer.trusted-packages", () -> "*");
         registry.add("kafka.consumer.auto-offset-reset", () -> "earliest");
     }
