@@ -1,0 +1,7 @@
+databaseChangeLog:
+  - changeSet:
+      id: change-user-id-type-to-varchar
+      author: arseni-herasimovich
+      changes:
+        - sql:
+            sql: ALTER TABLE orders ALTER COLUMN user_id TYPE varchar(255) using user_id::varchar;

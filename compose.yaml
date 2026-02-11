@@ -1,0 +1,38 @@
+services:
+  order-service:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    image: arsiwooqq/order-service
+    depends_on:
+      - order-service-db
+    networks:
+      - backend-net
+      - order-service-net
+    environment:
+      - DB_HOST=order-service-db
+      - DB_USERNAME=${DB_USERNAME}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_NAME=${DB_NAME}
+      - EUREKA_URL=http://discovery-service:8761/eureka/
+      - KAFKA_BOOTSTRAP_SERVERS=kafka-0:9090,kafka-1:9090,kafka-2:9090
+
+  order-service-db:
+    image: postgres:15
+    environment:
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: ${DB_USERNAME}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    networks:
+      - order-service-net
+    volumes:
+      - order-service-postgres-data:/var/lib/postgresql/data
+
+volumes:
+  order-service-postgres-data: {}
+
+networks:
+  backend-net:
+    external: true
+  order-service-net:
+    driver: bridge

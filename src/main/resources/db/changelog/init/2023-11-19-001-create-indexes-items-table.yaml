@@ -1,0 +1,17 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-indexes-items-table
+      author: arseni-herasimovich
+      changes:
+        - createIndex:
+            indexName: idx_items_name
+            tableName: items
+            columns:
+              - column:
+                  name: name
+        - createIndex:
+            indexName: idx_items_price
+            tableName: items
+            columns:
+              - column:
+                  name: price

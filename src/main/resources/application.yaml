@@ -1,0 +1,63 @@
+spring:
+  application:
+    name: order-service
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://${DB_HOST}/${DB_NAME}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+  liquibase:
+    change-log: classpath:db/changelog/master.yaml
+    enabled: true
+  jpa:
+    open-in-view: false
+  kafka:
+    bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS:localhost:9092}
+    admin:
+      auto-create: ${KAFKA_AUTO_CREATE_TOPICS:true}
+
+eureka:
+  client:
+    enabled: ${EUREKA_ENABLED:true}
+    service-url:
+      defaultZone: ${EUREKA_URL:http://localhost:8761/eureka/}
+
+resilience4j:
+  circuitbreaker:
+    instances:
+      user-service:
+        failure-rate-threshold: 30
+        slow-call-rate-threshold: 90
+        wait-duration-in-open-state: 15s
+        permitted-number-of-calls-in-half-open-state: 5
+        minimum-number-of-calls: 30
+
+kafka:
+  producer:
+    topics:
+      order-created:
+        name: ORDER_CREATED
+        partitions: 6
+        replicas: 3
+        min-insync: 2
+    acks: all
+    request-timeout: 5000
+    enable-idempotence: true
+  consumer:
+    group-id: order-service
+    trusted-packages: com.arsiwooqq.paymentservice.event
+logging:
+  level:
+    com.arsiwooqq: ${APP_LOGGING_LEVEL:info}
+
+management:
+  server:
+    port: 8081
+  endpoints:
+    web:
+      exposure:
+        include: health
+  endpoint:
+    health:
+      probes:
+        enabled: true

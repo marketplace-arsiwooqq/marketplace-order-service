@@ -1,0 +1,13 @@
+databaseChangeLog:
+  - include:
+      file: db/changelog/init/2023-11-13-001-create-orders-table.yaml
+  - include:
+      file: db/changelog/init/2023-11-13-002-create-items-table.yaml
+  - include:
+      file: db/changelog/init/2023-11-13-003-create-order-items-table.yaml
+  - include:
+      file: db/changelog/init/2023-11-14-001-create-indexes-orders-table.yaml
+  - include:
+      file: db/changelog/init/2023-11-19-001-create-indexes-items-table.yaml
+  - include:
+      file: db/changelog/init/2023-12-05-001-change-user-id-type-to-varchar.yaml

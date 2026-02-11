@@ -1,0 +1,27 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-indexes-orders-table
+      author: arseni-herasimovich
+      changes:
+        - createIndex:
+            indexName: idx_orders_user_id
+            tableName: orders
+            columns:
+              - column:
+                  name: user_id
+
+        - createIndex:
+            indexName: idx_orders_creation_date_status
+            tableName: orders
+            columns:
+              - column:
+                  name: creation_date
+              - column:
+                  name: status
+
+        - createIndex:
+            indexName: idx_orders_status
+            tableName: orders
+            columns:
+              - column:
+                  name: status
